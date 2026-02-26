@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import { supabase } from '../lib/supabase'
 import { rankLabel } from '../components/OrderForm'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, StatusBadge } from '../components/TableCells'
+import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, StatusBadge, ReqHeroCell } from '../components/TableCells'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, AreaChart, Area, Legend,
@@ -304,15 +304,16 @@ export default function Analytics() {
           </div>
           <DataTable
             columns={[
-              { label:'No',     width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
-              { label:'Rank',   width:'auto',  align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
-              { label:'Negara', width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
-              { label:'Tipe',   width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
-              { label:'Total',  width:'130px', align:'center', render: o => <TotalCell v={o.total_price} /> },
-              { label:'Profit', width:'130px', align:'center', render: o => <ProfitCell v={o.owner_price} /> },
-              { label:'Worker', width:'100px', align:'center', render: o => <WorkerCell name={o.worker_name} /> },
-              { label:'Status', width:'110px', align:'center', render: o => <StatusBadge s={o.status} /> },
-              { label:'Tgl',    width:'100px', align:'center', render: o => <DateCell d={o.created_at} /> },
+              { label:'No',       width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
+              { label:'Rank',     width:'auto',  align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+              { label:'Negara',   width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
+              { label:'Tipe',     width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
+              { label:'Req Hero', width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },
+              { label:'Total',    width:'130px', align:'center', render: o => <TotalCell v={o.total_price} /> },
+              { label:'Profit',   width:'130px', align:'center', render: o => <ProfitCell v={o.owner_price} /> },
+              { label:'Worker',   width:'100px', align:'center', render: o => <WorkerCell name={o.worker_name} /> },
+              { label:'Status',   width:'110px', align:'center', render: o => <StatusBadge s={o.status} /> },
+              { label:'Tgl',      width:'100px', align:'center', render: o => <DateCell d={o.created_at} /> },
             ]}
             rows={filtered.map(o => ({ ...o, _key: o.id }))}
           />

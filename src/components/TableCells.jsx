@@ -75,3 +75,17 @@ export const StatusBadge = ({ s }) => {
     </span>
   )
 }
+
+export const ReqHeroCell = ({ hero, lane }) => {
+  if (!hero && !lane) return <span style={{ color:'#CBD5E1', fontSize:12 }}>—</span>
+  return (
+    <div style={{ display:'flex', flexDirection:'column', gap:2 }}>
+      {hero && <span style={{ fontSize:12, fontWeight:600, color:'var(--text-2)' }}>{hero}</span>}
+      {lane && (
+        <span style={{ fontSize:10.5, fontWeight:700, color:'#0E7490', background:'#CFFAFE', padding:'1px 7px', borderRadius:99, display:'inline-block', width:'fit-content' }}>
+          {lane}
+        </span>
+      )}
+    </div>
+  )
+}

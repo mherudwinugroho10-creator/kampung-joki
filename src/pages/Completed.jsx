@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell } from '../components/TableCells'
+import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, ReqHeroCell } from '../components/TableCells'
 import { CheckCircle2, TrendingUp, DollarSign, Award, Calendar } from 'lucide-react'
 
 const fmt = n => n ? 'Rp '+parseFloat(n).toLocaleString('id-ID') : 'Rp 0'
@@ -86,12 +86,13 @@ export default function Completed() {
               <DataTable
                 columns={[
                   { label:'No',          width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
-                  { label:'Rank',        width:'120px',  align:'center',   render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+                  { label:'Rank',        width:'120px', align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
                   { label:'Negara',      width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
                   { label:'Tipe',        width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
-                  { label:'Total',       width:'130px', align:'center',  render: o => <TotalCell v={o.total_price} /> },
-                  { label:'Profit',      width:'130px', align:'center',  render: o => <ProfitCell v={o.owner_price} /> },
-                  { label:'Worker',      width:'100px', align:'center',   render: o => <WorkerCell name={o.worker_name} /> },
+                  { label:'Req Hero',    width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },
+                  { label:'Total',       width:'130px', align:'center', render: o => <TotalCell v={o.total_price} /> },
+                  { label:'Profit',      width:'130px', align:'center', render: o => <ProfitCell v={o.owner_price} /> },
+                  { label:'Worker',      width:'100px', align:'center', render: o => <WorkerCell name={o.worker_name} /> },
                   { label:'Tgl Order',   width:'110px', align:'center', render: o => <DateCell d={o.created_at} /> },
                   { label:'Tgl Selesai', width:'110px', align:'center', render: o => <DateCell d={o.completed_at} /> },
                 ]}

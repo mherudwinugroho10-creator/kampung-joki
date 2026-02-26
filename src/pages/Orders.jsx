@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import OrderForm, { rankLabel } from '../components/OrderForm'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, StatusBadge, fmtRp } from '../components/TableCells'
+import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, StatusBadge, fmtRp, ReqHeroCell } from '../components/TableCells'
 import { Plus, Search, Trash2 } from 'lucide-react'
 
 export default function Orders() {
@@ -115,13 +115,14 @@ export default function Orders() {
         emptyText="Tidak ada order ditemukan"
         columns={[
           { label:'No',         width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
-          { label:'Rank',       width:'auto',  align:'center',   render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+          { label:'Rank',       width:'auto',  align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
           { label:'Negara',     width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
           { label:'Tipe',       width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
-          { label:'Total',      width:'130px', align:'center',  render: o => <TotalCell v={o.total_price} /> },
-          { label:'Fee Worker', width:'110px', align:'center',  render: o => <span style={{ color:'#94A3B8', fontSize:12.5 }}>{fmtRp(o.worker_price)}</span> },
-          { label:'Profit',     width:'130px', align:'center',  render: o => <ProfitCell v={o.owner_price} /> },
-          { label:'Worker',     width:'100px', align:'center',   render: o => <WorkerCell name={o.worker_name} /> },
+          { label:'Req Hero',   width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },
+          { label:'Total',      width:'130px', align:'center', render: o => <TotalCell v={o.total_price} /> },
+          { label:'Fee Worker', width:'110px', align:'center', render: o => <span style={{ color:'#94A3B8', fontSize:12.5 }}>{fmtRp(o.worker_price)}</span> },
+          { label:'Profit',     width:'130px', align:'center', render: o => <ProfitCell v={o.owner_price} /> },
+          { label:'Worker',     width:'100px', align:'center', render: o => <WorkerCell name={o.worker_name} /> },
           { label:'Tgl Order',  width:'110px', align:'center', render: o => <DateCell d={o.created_at} /> },
           { label:'Status',     width:'130px', align:'center', render: o => (
             <select value={o.status} onChange={e => updateStatus(o.id, e.target.value)}

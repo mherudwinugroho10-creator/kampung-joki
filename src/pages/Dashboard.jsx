@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import OrderForm, { rankLabel } from '../components/OrderForm'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, StatusBadge } from '../components/TableCells'
+import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, StatusBadge, ReqHeroCell } from '../components/TableCells'
 import {
   ShoppingBag, Clock, CheckCircle2, TrendingUp,
   Plus, ArrowRight, Activity
@@ -109,13 +109,14 @@ export default function Dashboard({ setPage }) {
           loading={loading}
           emptyText="Belum ada order"
           columns={[
-            { label:'No',     width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
-            { label:'Rank',   width:'120px',  align:'left',   render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
-            { label:'Negara', width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
-            { label:'Tipe',   width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
-            { label:'Total',  width:'130px', align:'center',  render: o => <TotalCell v={o.total_price} /> },
-            { label:'Profit', width:'130px', align:'center',  render: o => <ProfitCell v={o.owner_price} /> },
-            { label:'Status', width:'110px', align:'center', render: o => <StatusBadge s={o.status} /> },
+            { label:'No',       width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
+            { label:'Rank',     width:'120px', align:'left',   render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+            { label:'Negara',   width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
+            { label:'Tipe',     width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
+            { label:'Req Hero', width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },
+            { label:'Total',    width:'130px', align:'center', render: o => <TotalCell v={o.total_price} /> },
+            { label:'Profit',   width:'130px', align:'center', render: o => <ProfitCell v={o.owner_price} /> },
+            { label:'Status',   width:'110px', align:'center', render: o => <StatusBadge s={o.status} /> },
           ]}
           rows={recent.map(o => ({ ...o, _key: o.id }))}
         />

@@ -161,6 +161,8 @@ const RankCard = ({ label, rank, level, star, onRankChange, onLevelChange, onSta
 export default function OrderForm({ onClose, onSuccess }) {
   const [form, setForm] = useState({
     player_id:'', country:'ID',
+    req_hero: '',
+    req_lane: '',
     current_rank:'Epic', current_level:1, current_star:1,
     target_rank:'Legend', target_level:5, target_star:5,
     service_type:'joki', total_price:'', worker_price:'', worker_name:'', notes:'',
@@ -195,6 +197,8 @@ export default function OrderForm({ onClose, onSuccess }) {
       owner_price:   Math.max(0,parseFloat(form.total_price)-parseFloat(form.worker_price)),
       worker_name:   form.worker_name||null,
       notes:         form.notes||null,
+      req_hero:      form.req_hero || null,
+      req_lane:      form.req_lane || null,
       status:        'pending',
     }])
     setLoading(false)
@@ -240,7 +244,38 @@ export default function OrderForm({ onClose, onSuccess }) {
             </div>
           </div>
 
-          <div style={{ height:1,background:'var(--border)',marginBottom:20 }} />
+          {/* REQ HERO */}
+          <div style={{ marginTop:20 }}>
+            <div style={{ fontSize:10, fontWeight:800, color:'#64748B', letterSpacing:'0.12em', marginBottom:12 }}>
+              REQ HERO (OPSIONAL)
+            </div>
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12 }}>
+              <div>
+                <label className="label">Nama Hero</label>
+                <input className="input"
+                  placeholder="Contoh: Fanny, Lancelot..."
+                  value={form.req_hero || ''}
+                  onChange={e => f('req_hero', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="label">Lane / Role</label>
+                <select className="input"
+                  value={form.req_lane || ''}
+                  onChange={e => f('req_lane', e.target.value)}
+                  style={{ cursor:'pointer' }}>
+                  <option value="">— Pilih Lane —</option>
+                  <option value="Mid">🎯 Mid</option>
+                  <option value="Side">⚔️ Side</option>
+                  <option value="Jungler">🌿 Jungler</option>
+                  <option value="Exp">💪 Exp Lane</option>
+                  <option value="Roam">🛡️ Roam</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ height:1,background:'var(--border)',marginBottom:20,marginTop:20 }} />
           <div style={{ fontSize:9,fontWeight:800,color:'var(--muted)',letterSpacing:'0.12em',marginBottom:12 }}>BREAKDOWN RANK</div>
 
           {/* Preview */}
