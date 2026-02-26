@@ -1,49 +1,73 @@
-import { Calendar } from 'lucide-react'
+import { Calendar, Menu } from 'lucide-react'
 
-export default function Topbar({ title, sub }) {
+export default function Topbar({ title, sub, isMobile, onMenuClick }) {
   const today = new Date().toLocaleDateString('id-ID', {
-    weekday:'long', day:'numeric', month:'long', year:'numeric'
+    weekday: isMobile ? 'short' : 'long',
+    day: 'numeric',
+    month: isMobile ? 'short' : 'long',
+    year: 'numeric'
   })
 
   return (
     <header style={{
-      height: 64,
+      height: 60,
       background: 'var(--card)',
       borderBottom: '1px solid var(--border)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 32px',
+      padding: isMobile ? '0 16px' : '0 32px',
       position: 'sticky',
       top: 0,
       zIndex: 50,
       flexShrink: 0,
       boxShadow: '0 1px 0 #E5E7EB, 0 2px 12px rgba(0,0,0,0.04)',
+      gap: 12,
     }}>
-      {/* Left: title */}
-      <div style={{ display:'flex', flexDirection:'column', justifyContent:'center' }}>
-        <h1 style={{
-          fontSize: 17,
-          fontWeight: 800,
-          color: 'var(--text)',
-          letterSpacing: '-0.02em',
-          lineHeight: 1.1,
-          margin: 0,
-        }}>{title}</h1>
-        <p style={{ fontSize:11.5, color:'var(--muted)', margin:0, marginTop:2 }}>{sub}</p>
+      <div style={{ display:'flex', alignItems:'center', gap:12, minWidth:0 }}>
+        {/* Hamburger di mobile */}
+        {isMobile && (
+          <button onClick={onMenuClick} style={{
+            width:36, height:36, borderRadius:9,
+            background:'var(--bg)', border:'1px solid var(--border)',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            cursor:'pointer', flexShrink:0, outline:'none',
+          }}>
+            <Menu size={18} color="var(--text)" />
+          </button>
+        )}
+        <div style={{ minWidth:0 }}>
+          <h1 style={{
+            fontSize: isMobile ? 15 : 17,
+            fontWeight: 800,
+            color: 'var(--text)',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}>{title}</h1>
+          {!isMobile && (
+            <p style={{ fontSize:11.5, color:'var(--muted)', margin:0, marginTop:2 }}>{sub}</p>
+          )}
+        </div>
       </div>
 
-      {/* Right: date */}
+      {/* Date */}
       <div style={{
-        display: 'flex', alignItems: 'center', gap: 7,
-        padding: '7px 14px',
+        display: 'flex', alignItems: 'center', gap: 6,
+        padding: isMobile ? '6px 10px' : '7px 14px',
         background: '#F8FAFC',
         border: '1px solid var(--border)',
         borderRadius: 99,
-        fontSize: 12, color: 'var(--text-2)', fontWeight: 500,
+        fontSize: isMobile ? 11 : 12,
+        color: 'var(--text-2)',
+        fontWeight: 500,
         whiteSpace: 'nowrap',
+        flexShrink: 0,
       }}>
-        <Calendar size={13} color="var(--cyan)" />
+        <Calendar size={12} color="var(--cyan)" />
         {today}
       </div>
     </header>

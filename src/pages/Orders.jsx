@@ -65,7 +65,7 @@ export default function Orders() {
       </div>
 
       {/* Summary */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12, marginBottom:18 }}>
+      <div className="summary-strip" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12, marginBottom:18 }}>
         {[
           { l:'TOTAL ORDER', v:orders.length,                               c:'var(--cyan)' },
           { l:'AKTIF',       v:orders.filter(o=>o.status!=='done').length,  c:'#F59E0B'     },

@@ -31,7 +31,7 @@ export default function Completed() {
   return (
     <div>
       {/* Stats */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14, marginBottom:24 }}>
+      <div className="stat-card-grid" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14, marginBottom:24 }}>
         {[
           { icon:CheckCircle2, label:'TOTAL SELESAI',  value:orders.length, color:'#10B981', bg:'#D1FAE5' },
           { icon:DollarSign,   label:'GROSS REVENUE',  value:fmt(gross),    color:'#06B6D4', bg:'#CFFAFE' },

@@ -76,7 +76,7 @@ export default function Dashboard({ setPage }) {
       </div>
 
       {/* Stat cards */}
-      <div style={{ display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:16,marginBottom:28 }}>
+      <div className="stat-card-grid" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:28 }}>
         {statCards.map((s,i) => {
           const Icon = s.icon
           return (

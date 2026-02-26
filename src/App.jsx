@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import Topbar from './components/Topbar'
 import Dashboard from './pages/Dashboard'
@@ -13,14 +13,22 @@ const titles = {
   analytics: { title:'Analitik',      sub:'Performa bisnis Kampung Joki' },
 }
 
-const SIDEBAR_W     = 232
-const SIDEBAR_W_COL = 68
-
 export default function App() {
   const [page,      setPage]      = useState('dashboard')
   const [collapsed, setCollapsed] = useState(false)
+  const [isMobile,  setIsMobile]  = useState(window.innerWidth < 768)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
-  const sideW = collapsed ? SIDEBAR_W_COL : SIDEBAR_W
+  useEffect(() => {
+    const handle = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      if (mobile) setCollapsed(true)
+    }
+    window.addEventListener('resize', handle)
+    handle()
+    return () => window.removeEventListener('resize', handle)
+  }, [])
 
   const renderPage = () => {
     switch(page) {
@@ -34,15 +42,48 @@ export default function App() {
 
   return (
     <div style={{ display:'flex', minHeight:'100vh', background:'var(--bg)' }}>
-      {/* Sidebar — lebar berubah, konten ikut otomatis */}
-      <Sidebar
-        page={page}
-        setPage={setPage}
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-      />
 
-      {/* Main content — flex:1 otomatis isi sisa lebar */}
+      {/* Mobile overlay */}
+      {isMobile && mobileOpen && (
+        <div
+          onClick={() => setMobileOpen(false)}
+          style={{
+            position:'fixed', inset:0,
+            background:'rgba(0,0,0,0.5)',
+            zIndex:99,
+          }}
+        />
+      )}
+
+      {/* Sidebar */}
+      {isMobile ? (
+        // Mobile: sidebar as drawer
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0,
+          height: '100vh',
+          zIndex: 100,
+          transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 0.28s cubic-bezier(.4,0,.2,1)',
+        }}>
+          <Sidebar
+            page={page}
+            setPage={v => { setPage(v); setMobileOpen(false) }}
+            collapsed={false}
+            setCollapsed={() => {}}
+          />
+        </div>
+      ) : (
+        // Desktop: sidebar in flow
+        <Sidebar
+          page={page}
+          setPage={setPage}
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+        />
+      )}
+
+      {/* Main */}
       <div style={{
         flex: 1,
         minWidth: 0,
@@ -50,8 +91,12 @@ export default function App() {
         flexDirection: 'column',
         transition: 'all 0.28s cubic-bezier(.4,0,.2,1)',
       }}>
-        <Topbar {...titles[page]} />
-        <main style={{ flex:1, padding:'28px 32px', minWidth:0 }}>
+        <Topbar
+          {...titles[page]}
+          isMobile={isMobile}
+          onMenuClick={() => setMobileOpen(p => !p)}
+        />
+        <main style={{ flex:1, padding: isMobile ? '16px' : '28px 32px', minWidth:0 }}>
           {renderPage()}
         </main>
       </div>

@@ -422,3 +422,40 @@ tbody td {
   .page-body { padding: 16px; }
   .topbar { padding: 0 16px; }
 }
+
+/* ── Mobile responsive ──────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Stat cards jadi 2 kolom */
+  .stat-card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  /* Page padding lebih kecil */
+  main { padding: 16px !important; }
+
+  /* Hero band lebih compact */
+  .page-header-band { padding: 16px !important; }
+
+  /* Summary strip jadi 1 kolom */
+  .summary-strip {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* Tabel scroll horizontal di mobile */
+  .table-scroll-mobile {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Form modal full width */
+  .modal {
+    margin: 12px !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 24px) !important;
+  }
+
+  /* Chart lebih kecil */
+  .recharts-wrapper { font-size: 10px !important; }
+}

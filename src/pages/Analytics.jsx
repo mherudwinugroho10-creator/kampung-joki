@@ -143,7 +143,7 @@ export default function Analytics() {
       </div>
 
       {/* Stats */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:24 }}>
+      <div className="stat-card-grid" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:24 }}>
         {[
           { icon:BarChart3,  label:'Total Order',   value:filtered.length,  color:'#06B6D4', bg:'#CFFAFE' },
           { icon:TrendingUp, label:'Profit Owner',  value:fmt(totalProfit), color:'#8B5CF6', bg:'#EDE9FE' },
@@ -167,7 +167,7 @@ export default function Analytics() {
       </div>
 
       {/* Chart row 1 */}
-      <div style={{ display:'grid', gridTemplateColumns:'3fr 2fr', gap:20, marginBottom:20 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:20, marginBottom:20 }}>
         <div className="card fade-up" style={{ padding:24 }}>
           <h3 style={{ fontSize:14, fontWeight:700, color:'var(--text)', marginBottom:3 }}>Tren Order 6 Bulan Terakhir</h3>
           <p style={{ fontSize:12, color:'var(--muted)', marginBottom:24 }}>Total order masuk vs selesai</p>
@@ -233,7 +233,7 @@ export default function Analytics() {
       </div>
 
       {/* Service + Workers */}
-      <div style={{ display:'grid', gridTemplateColumns:'1fr 2fr', gap:20, marginBottom:20 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:20, marginBottom:20 }}>
         <div className="card fade-up" style={{ padding:24 }}>
           <h3 style={{ fontSize:14, fontWeight:700, color:'var(--text)', marginBottom:3 }}>Tipe Layanan</h3>
           <p style={{ fontSize:12, color:'var(--muted)', marginBottom:16 }}>{filterLabel}</p>
