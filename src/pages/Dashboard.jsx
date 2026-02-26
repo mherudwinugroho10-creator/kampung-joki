@@ -43,34 +43,33 @@ export default function Dashboard({ setPage }) {
       {/* Hero bar */}
       <div style={{
         background:'linear-gradient(135deg, var(--dark) 0%, #1E293B 100%)',
-        borderRadius:20, padding:'28px 32px', marginBottom:28,
-        display:'flex', alignItems:'center', justifyContent:'space-between',
-        position:'relative', overflow:'hidden',
+        borderRadius:16, padding:'22px 24px', marginBottom:20,
+        display:'flex', alignItems:'flex-start', justifyContent:'space-between',
+        position:'relative', overflow:'hidden', gap:12,
       }}>
         <div style={{ position:'absolute',right:-40,top:-40,width:200,height:200,borderRadius:'50%',background:'rgba(6,182,212,0.08)' }} />
         <div style={{ position:'absolute',right:60,bottom:-60,width:160,height:160,borderRadius:'50%',background:'rgba(6,182,212,0.05)' }} />
-
-        <div style={{ position:'relative' }}>
-          <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8 }}>
-            <div style={{ width:8,height:8,borderRadius:'50%',background:'#10B981',boxShadow:'0 0 0 3px rgba(16,185,129,0.2)' }} />
-            <span style={{ fontSize:11,fontWeight:700,color:'#64748B',letterSpacing:'0.1em' }}>LIVE DASHBOARD</span>
+        <div style={{ position:'relative', flex:1, minWidth:0 }}>
+          <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:6 }}>
+            <div style={{ width:7,height:7,borderRadius:'50%',background:'#10B981',boxShadow:'0 0 0 3px rgba(16,185,129,0.2)' }} />
+            <span style={{ fontSize:10,fontWeight:700,color:'#64748B',letterSpacing:'0.1em' }}>LIVE DASHBOARD</span>
           </div>
-          <h2 style={{ fontSize:26,fontWeight:800,color:'#fff',letterSpacing:'-0.03em',lineHeight:1.1,marginBottom:6 }}>
+          <h2 style={{ fontSize:20,fontWeight:800,color:'#fff',letterSpacing:'-0.03em',lineHeight:1.15,marginBottom:5 }}>
             Kampung Joki MLBB
           </h2>
-          <p style={{ fontSize:13,color:'#64748B',fontWeight:500 }}>
+          <p style={{ fontSize:12,color:'#64748B',fontWeight:500,margin:0 }}>
             {stats.active > 0
-              ? `${stats.active} order aktif sedang dikerjakan`
-              : 'Semua order selesai — siap terima order baru'}
+              ? `${stats.active} order aktif`
+              : 'Siap terima order baru'}
           </p>
         </div>
-
-        <div style={{ display:'flex',flexDirection:'column',alignItems:'flex-end',gap:12,position:'relative' }}>
-          <button className="btn-primary" onClick={()=>setShowForm(true)} style={{ fontSize:14, padding:'12px 24px' }}>
-            <Plus size={16} /> Order Baru
+        <div style={{ display:'flex',flexDirection:'column',alignItems:'flex-end',gap:8,position:'relative',flexShrink:0 }}>
+          <button className="btn-primary" onClick={()=>setShowForm(true)}
+            style={{ fontSize:13, padding:'10px 18px', whiteSpace:'nowrap' }}>
+            <Plus size={15} /> Order Baru
           </button>
-          <div style={{ fontSize:12,color:'#475569',fontWeight:500 }}>
-            Pending revenue: <b style={{ color:'#F59E0B' }}>{fmt(stats.pendingRevenue)}</b>
+          <div style={{ fontSize:11,color:'#475569',fontWeight:500,textAlign:'right' }}>
+            Pending: <b style={{ color:'#F59E0B' }}>{fmt(stats.pendingRevenue)}</b>
           </div>
         </div>
       </div>

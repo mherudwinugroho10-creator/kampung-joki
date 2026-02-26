@@ -47,9 +47,9 @@ export default function Orders() {
       {/* Header band */}
       <div style={{
         background:'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
-        borderRadius:16, padding:'22px 28px', marginBottom:20,
+        borderRadius:16, padding:'18px 22px', marginBottom:18,
         display:'flex', alignItems:'center', justifyContent:'space-between',
-        position:'relative', overflow:'hidden',
+        position:'relative', overflow:'hidden', gap:12, flexWrap:'wrap',
       }}>
         <div style={{ position:'absolute', right:-20, top:-20, width:140, height:140, borderRadius:'50%', background:'rgba(6,182,212,0.06)' }} />
         <div style={{ position:'relative' }}>
@@ -82,7 +82,7 @@ export default function Orders() {
       </div>
 
       {/* Toolbar */}
-      <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:12, alignItems:'center' }}>
+      <div className="filter-toolbar" style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:12, alignItems:'center' }}>
         <div style={{ position:'relative', flex:1, minWidth:180 }}>
           <Search size={13} style={{ position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'var(--muted)' }} />
           <input className="input" style={{ paddingLeft:34, borderRadius:99, fontSize:13 }}
