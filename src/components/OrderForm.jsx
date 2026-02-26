@@ -182,7 +182,7 @@ export default function OrderForm({ onClose, onSuccess }) {
     const t_cur = getRankType(form.current_rank)
     const t_tgt = getRankType(form.target_rank)
     const { error:err } = await supabase.from('orders').insert([{
-      player_id:     form.player_id.trim() || null,
+      player_id: form.player_id || '',
       country:       form.country,
       current_rank:  form.current_rank,
       current_level: t_cur==='tiered' ? form.current_level : null,
