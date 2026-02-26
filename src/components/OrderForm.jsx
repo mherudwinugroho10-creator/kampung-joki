@@ -176,14 +176,13 @@ export default function OrderForm({ onClose, onSuccess }) {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    if(!form.player_id.trim())              { setError('Username wajib diisi.'); return }
     if(!form.total_price||!form.worker_price) { setError('Harga wajib diisi.'); return }
     if(parseFloat(form.worker_price)>parseFloat(form.total_price)) { setError('Fee worker melebihi total.'); return }
     setLoading(true); setError('')
     const t_cur = getRankType(form.current_rank)
     const t_tgt = getRankType(form.target_rank)
     const { error:err } = await supabase.from('orders').insert([{
-      player_id:     form.player_id.trim(),
+      player_id:     form.player_id.trim() || null,
       country:       form.country,
       current_rank:  form.current_rank,
       current_level: t_cur==='tiered' ? form.current_level : null,
@@ -222,12 +221,8 @@ export default function OrderForm({ onClose, onSuccess }) {
         <form onSubmit={handleSubmit} className="modal-body">
           {error && <div style={{ padding:'10px 14px',borderRadius:10,marginBottom:20,background:'#FEF2F2',border:'1px solid #FECACA',fontSize:13,color:'#DC2626' }}>{error}</div>}
 
-          <div style={{ fontSize:9,fontWeight:800,color:'var(--muted)',letterSpacing:'0.12em',marginBottom:12 }}>INFO PLAYER</div>
+          {/* Negara & Tipe */}
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:14, marginBottom:20 }}>
-            <div style={{ gridColumn:'1/-1' }}>
-              <label className="label">Username / Nickname *</label>
-              <input className="input" placeholder="Username in-game" value={form.player_id} onChange={e=>f('player_id',e.target.value)} />
-            </div>
             <div>
               <label className="label">Negara *</label>
               <select className="input" value={form.country} onChange={e=>f('country',e.target.value)}>
@@ -245,7 +240,7 @@ export default function OrderForm({ onClose, onSuccess }) {
           </div>
 
           {/* REQ HERO */}
-          <div style={{ marginTop:20 }}>
+          <div style={{ marginBottom:20 }}>
             <div style={{ fontSize:10, fontWeight:800, color:'#64748B', letterSpacing:'0.12em', marginBottom:12 }}>
               REQ HERO (OPSIONAL)
             </div>
@@ -275,7 +270,7 @@ export default function OrderForm({ onClose, onSuccess }) {
             </div>
           </div>
 
-          <div style={{ height:1,background:'var(--border)',marginBottom:20,marginTop:20 }} />
+          <div style={{ height:1,background:'var(--border)',marginBottom:20 }} />
           <div style={{ fontSize:9,fontWeight:800,color:'var(--muted)',letterSpacing:'0.12em',marginBottom:12 }}>BREAKDOWN RANK</div>
 
           {/* Preview */}
