@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, ReqHeroCell } from '../components/TableCells'
+import { RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, ReqHeroCell } from '../components/TableCells'
 import { CheckCircle2, TrendingUp, DollarSign, Award, Calendar } from 'lucide-react'
 
 const fmt = n => n ? 'Rp '+parseFloat(n).toLocaleString('id-ID') : 'Rp 0'
@@ -30,6 +30,30 @@ export default function Completed() {
 
   return (
     <div>
+      {/* Header Band */}
+      <div className="page-header-band fade-up" style={{ marginBottom:20 }}>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:12, position:'relative', zIndex:1 }}>
+          <div>
+            <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
+              <div style={{ width:7, height:7, borderRadius:'50%', background:'#10B981', boxShadow:'0 0 0 3px rgba(16,185,129,0.2)' }} />
+              <span style={{ fontSize:10, fontWeight:700, color:'#64748B', letterSpacing:'0.1em' }}>REKAP ORDER</span>
+            </div>
+            <h2 style={{ fontSize:22, fontWeight:800, color:'#fff', letterSpacing:'-0.03em', marginBottom:4 }}>
+              Order Selesai
+            </h2>
+            <p style={{ fontSize:12, color:'#64748B', margin:0 }}>
+              {orders.length} order telah selesai dikerjakan
+            </p>
+          </div>
+          <div style={{ textAlign:'right' }}>
+            <div style={{ fontSize:11, color:'#64748B', marginBottom:4 }}>Total Profit</div>
+            <div style={{ fontSize:24, fontWeight:800, color:'#10B981', letterSpacing:'-0.03em' }}>
+              {fmt(orders.reduce((s,o) => s + (o.owner_price||0), 0))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Stats */}
       <div className="stat-card-grid" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14, marginBottom:24 }}>
         {[
@@ -85,7 +109,7 @@ export default function Completed() {
 
               <DataTable
                 columns={[
-                  { label:'No',          width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
+                  { label:'No',          width:'60px',  align:'center', render: (o,idx) => <span style={{ fontWeight:800, fontSize:12, color:'#0E7490', background:'#CFFAFE', padding:'3px 9px', borderRadius:6 }}>{idx + 1}</span> },
                   { label:'Rank',        width:'120px', align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
                   { label:'Negara',      width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
                   { label:'Tipe',        width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },

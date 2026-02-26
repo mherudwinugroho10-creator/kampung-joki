@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import OrderForm, { rankLabel } from '../components/OrderForm'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, StatusBadge, ReqHeroCell } from '../components/TableCells'
+import { RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, StatusBadge, ReqHeroCell } from '../components/TableCells'
 import {
-  ShoppingBag, Clock, CheckCircle2, TrendingUp,
+  ShoppingBag, CheckCircle2, TrendingUp,
   Plus, ArrowRight, Activity
 } from 'lucide-react'
 
@@ -109,7 +109,7 @@ export default function Dashboard({ setPage }) {
           loading={loading}
           emptyText="Belum ada order"
           columns={[
-            { label:'No',       width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
+            { label:'No',       width:'60px',  align:'center', render: (o,idx) => <span style={{ fontWeight:800, fontSize:12, color:'#0E7490', background:'#CFFAFE', padding:'3px 9px', borderRadius:6 }}>{idx + 1}</span> },
             { label:'Rank',     width:'120px', align:'left',   render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
             { label:'Negara',   width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
             { label:'Tipe',     width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },

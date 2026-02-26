@@ -62,7 +62,7 @@ export default function DataTable({ columns, rows, loading, emptyText = 'Tidak a
                   overflow: 'hidden',
                   maxWidth: col.width || 'auto',
                 }}>
-                  {col.render ? col.render(row) : row[col.key]}
+                  {col.render ? col.render(row, idx) : row[col.key]}
                 </td>
               ))}
             </tr>

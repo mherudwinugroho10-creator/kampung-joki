@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import OrderForm, { rankLabel } from '../components/OrderForm'
 import DataTable from '../components/DataTable'
-import { NoCell, RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, StatusBadge, fmtRp, ReqHeroCell } from '../components/TableCells'
+import { RankCell, NegaraCell, TipeCell, TotalCell, ProfitCell, WorkerCell, DateCell, StatusBadge, fmtRp, ReqHeroCell } from '../components/TableCells'
 import { Plus, Search, Trash2 } from 'lucide-react'
 
 export default function Orders() {
@@ -23,7 +23,7 @@ export default function Orders() {
     let r=[...orders]
     if(filter!=='all') r=r.filter(o=>o.status===filter)
     if(search.trim()) r=r.filter(o=>
-      o.player_id.toLowerCase().includes(search.toLowerCase()) ||
+      (o.player_id||'').toLowerCase().includes(search.toLowerCase()) ||
       String(o.order_number).includes(search)
     )
     setFiltered(r)
@@ -114,7 +114,7 @@ export default function Orders() {
         loading={loading}
         emptyText="Tidak ada order ditemukan"
         columns={[
-          { label:'No',         width:'60px',  align:'center', render: o => <NoCell n={o.order_number} /> },
+          { label:'No',         width:'60px',  align:'center', render: (o,idx) => <span style={{ fontWeight:800, fontSize:12, color:'#0E7490', background:'#CFFAFE', padding:'3px 9px', borderRadius:6 }}>{idx + 1}</span> },
           { label:'Rank',       width:'auto',  align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
           { label:'Negara',     width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
           { label:'Tipe',       width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
