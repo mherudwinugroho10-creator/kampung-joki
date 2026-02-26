@@ -89,7 +89,7 @@ export default function Sidebar({ page, setPage, collapsed, setCollapsed }) {
               <div style={{ color:'#fff', fontWeight:800, fontSize:13.5, letterSpacing:'-0.01em' }}>
                 Kampung Joki
               </div>
-              <div style={{ color:'var(--cyan)', fontSize:9, fontWeight:700, letterSpacing:'0.14em', marginTop:1 }}>
+              <div style={{ color:'var(--cyan)', fontSize:6, fontWeight:700, letterSpacing:'0.14em', marginTop:1 }}>
                 MLBB MANAGEMENT
               </div>
             </div>
