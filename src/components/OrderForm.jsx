@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { X, DollarSign } from 'lucide-react'
 
-const WORKERS = ['Pajar', 'Perdy', 'Candra', 'Akmal', 'Ivan','Nugraha','Syam','Ghil','R']
+const WORKERS = ['Pajar', 'Perdy', 'Candra', 'Akmal', 'Ivan','Nugraha','Syam','Ghil','R','Jo']
 const TIERED  = ['Warrior','Elite','Master','Grandmaster','Epic','Legend']
 const MYTHICS = ['Placement','Mythic','Mythical Honor','Mythical Glory','Mythical Immortal']
 export const ALL_RANKS = [...TIERED, ...MYTHICS]

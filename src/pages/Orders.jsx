@@ -124,14 +124,21 @@ export default function Orders() {
           { label:'Profit',     width:'130px', align:'center', render: o => <ProfitCell v={o.owner_price} /> },
           { label:'Worker',     width:'100px', align:'center', render: o => <WorkerCell name={o.worker_name} /> },
           { label:'Tgl Order',  width:'110px', align:'center', render: o => <DateCell d={o.created_at} /> },
-          { label:'Status',     width:'130px', align:'center', render: o => (
+          { label:'Status',     width:'150px', align:'center', render: o => (
             <select value={o.status} onChange={e => updateStatus(o.id, e.target.value)}
               style={{
-                padding: '5px 10px', borderRadius: 99, fontSize: 11, fontWeight: 700,
+                padding: '6px 10px',
+                borderRadius: 99,
+                fontSize: 11,
+                fontWeight: 700,
                 border: `1.5px solid ${{ pending:'#FDE68A', in_progress:'#BFDBFE', done:'#BBF7D0' }[o.status] || '#E5E7EB'}`,
                 background: { pending:'#FFFBEB', in_progress:'#EFF6FF', done:'#F0FDF4' }[o.status] || '#F9FAFB',
                 color: { pending:'#B45309', in_progress:'#1D4ED8', done:'#15803D' }[o.status] || '#6B7280',
-                cursor: 'pointer', outline: 'none', fontFamily: 'Plus Jakarta Sans', width: '100%',
+                cursor: 'pointer',
+                outline: 'none',
+                fontFamily: 'Plus Jakarta Sans',
+                minWidth: '120px',
+                whiteSpace: 'nowrap',
               }}>
               <option value="pending">Pending</option>
               <option value="in_progress">In Progress</option>
