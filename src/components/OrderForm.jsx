@@ -182,22 +182,22 @@ export default function OrderForm({ onClose, onSuccess }) {
     const t_cur = getRankType(form.current_rank)
     const t_tgt = getRankType(form.target_rank)
     const { error:err } = await supabase.from('orders').insert([{
-      player_id: form.player_id || '',
+      player_id:     form.player_id || '',
       country:       form.country,
       current_rank:  form.current_rank,
       current_level: t_cur==='tiered' ? form.current_level : null,
-      current_star:  t_cur!=='points' ? form.current_star  : null,
+      current_star:  form.current_star,
       target_rank:   form.target_rank,
-      target_level:  t_tgt==='tiered' ? form.target_level  : null,
-      target_star:   t_tgt!=='points' ? form.target_star   : null,
+      target_level:  t_tgt==='tiered' ? form.target_level : null,
+      target_star:   form.target_star,
       service_type:  form.service_type,
       total_price:   parseFloat(form.total_price),
       worker_price:  parseFloat(form.worker_price),
       owner_price:   Math.max(0,parseFloat(form.total_price)-parseFloat(form.worker_price)),
       worker_name:   form.worker_name||null,
       notes:         form.notes||null,
-      req_hero:      form.req_hero || null,
-      req_lane:      form.req_lane || null,
+      req_hero:      form.req_hero||null,
+      req_lane:      form.req_lane||null,
       status:        'pending',
     }])
     setLoading(false)
@@ -239,7 +239,7 @@ export default function OrderForm({ onClose, onSuccess }) {
             </div>
           </div>
 
-          {/* REQ HERO */}
+          {/* Req Hero */}
           <div style={{ marginBottom:20 }}>
             <div style={{ fontSize:10, fontWeight:800, color:'#64748B', letterSpacing:'0.12em', marginBottom:12 }}>
               REQ HERO (OPSIONAL)
@@ -298,10 +298,14 @@ export default function OrderForm({ onClose, onSuccess }) {
           <div style={{ fontSize:9,fontWeight:800,color:'var(--muted)',letterSpacing:'0.12em',marginBottom:12 }}>HARGA & WORKER</div>
 
           <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14 }}>
-            <div><label className="label">Total Harga (Rp) *</label>
-              <input className="input" type="number" min="0" placeholder="0" value={form.total_price} onChange={e=>f('total_price',e.target.value)} /></div>
-            <div><label className="label">Fee Worker (Rp) *</label>
-              <input className="input" type="number" min="0" placeholder="0" value={form.worker_price} onChange={e=>f('worker_price',e.target.value)} /></div>
+            <div>
+              <label className="label">Total Harga (Rp) *</label>
+              <input className="input" type="number" min="0" placeholder="0" value={form.total_price} onChange={e=>f('total_price',e.target.value)} />
+            </div>
+            <div>
+              <label className="label">Fee Worker (Rp) *</label>
+              <input className="input" type="number" min="0" placeholder="0" value={form.worker_price} onChange={e=>f('worker_price',e.target.value)} />
+            </div>
           </div>
 
           <div style={{ marginBottom:14 }}>
@@ -313,13 +317,17 @@ export default function OrderForm({ onClose, onSuccess }) {
           </div>
 
           <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:14 }}>
-            <div><label className="label">Worker</label>
+            <div>
+              <label className="label">Worker</label>
               <select className="input" value={form.worker_name} onChange={e=>f('worker_name',e.target.value)}>
                 <option value="">Belum ditentukan</option>
                 {WORKERS.map(w=><option key={w}>{w}</option>)}
-              </select></div>
-            <div><label className="label">Catatan</label>
-              <input className="input" placeholder="Catatan tambahan..." value={form.notes} onChange={e=>f('notes',e.target.value)} /></div>
+              </select>
+            </div>
+            <div>
+              <label className="label">Catatan</label>
+              <input className="input" placeholder="Catatan tambahan..." value={form.notes} onChange={e=>f('notes',e.target.value)} />
+            </div>
           </div>
 
           <div style={{ display:'flex',gap:10,marginTop:24 }}>
