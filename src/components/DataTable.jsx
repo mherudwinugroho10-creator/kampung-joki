@@ -9,14 +9,9 @@ export default function DataTable({ columns, rows, loading, emptyText = 'Tidak a
       <table style={{
         width: '100%',
         borderCollapse: 'collapse',
-        tableLayout: 'fixed',
-        minWidth: 600,
+        tableLayout: 'auto',   /* ← auto, bukan fixed */
+        whiteSpace: 'nowrap',  /* ← semua cell tidak wrap */
       }}>
-        <colgroup>
-          {columns.map((col, i) => (
-            <col key={i} style={{ width: col.width || 'auto' }} />
-          ))}
-        </colgroup>
         <thead>
           <tr style={{ background:'#F8FAFC', borderBottom:'2px solid #E2E8F0' }}>
             {columns.map((col, i) => (
@@ -75,7 +70,7 @@ export default function DataTable({ columns, rows, loading, emptyText = 'Tidak a
                   fontSize: 13,
                   color: 'var(--text-2)',
                   verticalAlign: 'middle',
-                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
                 }}>
                   {col.render ? col.render(row, idx) : row[col.key]}
                 </td>
