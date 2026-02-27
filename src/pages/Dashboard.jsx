@@ -58,9 +58,7 @@ export default function Dashboard({ setPage }) {
             Kampung Joki MLBB
           </h2>
           <p style={{ fontSize:12,color:'#64748B',fontWeight:500,margin:0 }}>
-            {stats.active > 0
-              ? `${stats.active} order aktif`
-              : 'Siap terima order baru'}
+            {stats.active > 0 ? `${stats.active} order aktif` : 'Siap terima order baru'}
           </p>
         </div>
         <div style={{ display:'flex',flexDirection:'column',alignItems:'flex-end',gap:8,position:'relative',flexShrink:0 }}>
@@ -75,7 +73,7 @@ export default function Dashboard({ setPage }) {
       </div>
 
       {/* Stat cards */}
-      <div className="stat-card-grid" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:28 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:28 }}>
         {statCards.map((s,i) => {
           const Icon = s.icon
           return (
@@ -110,7 +108,7 @@ export default function Dashboard({ setPage }) {
           emptyText="Belum ada order"
           columns={[
             { label:'No',       width:'60px',  align:'center', render: (o,idx) => <span style={{ fontWeight:800, fontSize:12, color:'#0E7490', background:'#CFFAFE', padding:'3px 9px', borderRadius:6 }}>{idx + 1}</span> },
-            { label:'Rank',     width:'120px', align:'left',   render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+            { label:'Rank',     width:'auto',  align:'left',   render: o => <RankCell {...o} /> },
             { label:'Negara',   width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
             { label:'Tipe',     width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
             { label:'Req Hero', width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },

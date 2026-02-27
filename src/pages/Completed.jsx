@@ -55,7 +55,7 @@ export default function Completed() {
       </div>
 
       {/* Stats */}
-      <div className="stat-card-grid" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14, marginBottom:24 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:14, marginBottom:24 }}>
         {[
           { icon:CheckCircle2, label:'TOTAL SELESAI',  value:orders.length, color:'#10B981', bg:'#D1FAE5' },
           { icon:DollarSign,   label:'GROSS REVENUE',  value:fmt(gross),    color:'#06B6D4', bg:'#CFFAFE' },
@@ -90,7 +90,6 @@ export default function Completed() {
           const mg = mo.reduce((s,o)=>s+parseFloat(o.total_price||0),0)
           return (
             <div key={month} style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:16, overflow:'hidden' }}>
-              {/* Month header */}
               <div style={{ padding:'16px 22px', background:'linear-gradient(135deg,#F8FAFC,#F0FDFA)', borderBottom:'1px solid #E5E7EB', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:12 }}>
                   <div style={{ width:34, height:34, borderRadius:9, background:'#CFFAFE', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -110,7 +109,7 @@ export default function Completed() {
               <DataTable
                 columns={[
                   { label:'No',          width:'60px',  align:'center', render: (o,idx) => <span style={{ fontWeight:800, fontSize:12, color:'#0E7490', background:'#CFFAFE', padding:'3px 9px', borderRadius:6 }}>{idx + 1}</span> },
-                  { label:'Rank',        width:'120px', align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+                  { label:'Rank',        width:'auto',  align:'center', render: o => <RankCell {...o} /> },
                   { label:'Negara',      width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
                   { label:'Tipe',        width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
                   { label:'Req Hero',    width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },

@@ -1,15 +1,24 @@
-// Komponen tabel universal — dipakai di semua pages
 export default function DataTable({ columns, rows, loading, emptyText = 'Tidak ada data' }) {
   return (
-    <div style={{ overflowX: 'auto', borderRadius: 14, border: '1px solid #E5E7EB' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <div style={{
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      borderRadius: 14,
+      border: '1px solid #E5E7EB',
+    }}>
+      <table style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        tableLayout: 'fixed',
+        minWidth: 600,
+      }}>
         <colgroup>
           {columns.map((col, i) => (
             <col key={i} style={{ width: col.width || 'auto' }} />
           ))}
         </colgroup>
         <thead>
-          <tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+          <tr style={{ background:'#F8FAFC', borderBottom:'2px solid #E2E8F0' }}>
             {columns.map((col, i) => (
               <th key={i} style={{
                 padding: '11px 14px',
@@ -30,14 +39,21 @@ export default function DataTable({ columns, rows, loading, emptyText = 'Tidak a
         <tbody>
           {loading && (
             <tr>
-              <td colSpan={columns.length} style={{ textAlign: 'center', padding: 48 }}>
-                <div style={{ width: 24, height: 24, border: '3px solid #E5E7EB', borderTopColor: '#06B6D4', borderRadius: '50%', animation: 'spin 0.7s linear infinite', margin: '0 auto' }} />
+              <td colSpan={columns.length} style={{ textAlign:'center', padding:48 }}>
+                <div style={{
+                  width:24, height:24,
+                  border:'3px solid #E5E7EB',
+                  borderTopColor:'#06B6D4',
+                  borderRadius:'50%',
+                  animation:'spin 0.7s linear infinite',
+                  margin:'0 auto',
+                }} />
               </td>
             </tr>
           )}
           {!loading && rows.length === 0 && (
             <tr>
-              <td colSpan={columns.length} style={{ textAlign: 'center', padding: 48, color: '#94A3B8', fontSize: 13 }}>
+              <td colSpan={columns.length} style={{ textAlign:'center', padding:48, color:'#94A3B8', fontSize:13 }}>
                 {emptyText}
               </td>
             </tr>
@@ -45,7 +61,7 @@ export default function DataTable({ columns, rows, loading, emptyText = 'Tidak a
           {!loading && rows.map((row, idx) => (
             <tr key={row._key || idx}
               style={{
-                borderBottom: idx < rows.length - 1 ? '1px solid #F1F5F9' : 'none',
+                borderBottom: '1px solid #F1F5F9',
                 background: idx % 2 === 0 ? '#fff' : '#FAFCFF',
                 transition: 'background 0.1s',
               }}
@@ -60,7 +76,6 @@ export default function DataTable({ columns, rows, loading, emptyText = 'Tidak a
                   color: 'var(--text-2)',
                   verticalAlign: 'middle',
                   overflow: 'hidden',
-                  maxWidth: col.width || 'auto',
                 }}>
                   {col.render ? col.render(row, idx) : row[col.key]}
                 </td>

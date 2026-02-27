@@ -65,7 +65,7 @@ export default function Orders() {
       </div>
 
       {/* Summary */}
-      <div className="summary-strip" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12, marginBottom:18 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12, marginBottom:18 }}>
         {[
           { l:'TOTAL ORDER', v:orders.length,                               c:'var(--cyan)' },
           { l:'AKTIF',       v:orders.filter(o=>o.status!=='done').length,  c:'#F59E0B'     },
@@ -82,7 +82,7 @@ export default function Orders() {
       </div>
 
       {/* Toolbar */}
-      <div className="filter-toolbar" style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:12, alignItems:'center' }}>
+      <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:12, alignItems:'center' }}>
         <div style={{ position:'relative', flex:1, minWidth:180 }}>
           <Search size={13} style={{ position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'var(--muted)' }} />
           <input className="input" style={{ paddingLeft:34, borderRadius:99, fontSize:13 }}
@@ -115,7 +115,7 @@ export default function Orders() {
         emptyText="Tidak ada order ditemukan"
         columns={[
           { label:'No',         width:'60px',  align:'center', render: (o,idx) => <span style={{ fontWeight:800, fontSize:12, color:'#0E7490', background:'#CFFAFE', padding:'3px 9px', borderRadius:6 }}>{idx + 1}</span> },
-          { label:'Rank',       width:'auto',  align:'center', render: o => <RankCell rank={o.current_rank} level={o.current_level} star={o.current_star} targetRank={o.target_rank} targetLevel={o.target_level} targetStar={o.target_star} /> },
+          { label:'Rank',       width:'auto',  align:'center', render: o => <RankCell {...o} /> },
           { label:'Negara',     width:'80px',  align:'center', render: o => <NegaraCell country={o.country} /> },
           { label:'Tipe',       width:'110px', align:'center', render: o => <TipeCell type={o.service_type} /> },
           { label:'Req Hero',   width:'110px', align:'left',   render: o => <ReqHeroCell hero={o.req_hero} lane={o.req_lane} /> },
